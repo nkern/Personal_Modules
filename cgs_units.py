@@ -1,5 +1,6 @@
 ## CGS units list
 h_p		= 6.6260755e-27		# ergs s
+hbar		= 1.0545718e-27		# ergs s
 k_b		= 1.38065e-16		# ergs K-1
 G		= 6.67259e-8		# cm3 g-1 s-2
 c 		= 2.9979e10			# cm s-1
