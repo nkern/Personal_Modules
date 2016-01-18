@@ -15,7 +15,7 @@ def create(names,locals_vars):
 	local_var : locals() instance from lowest namespace
 	'''
 	N = len(names)
-	dictionary = {}
+	dictionary = OrderedDict()
 	for i in range(N):
 		within = names[i] in locals_vars
 		if within == True:
