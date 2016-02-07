@@ -23,10 +23,16 @@ def fits_table(dictionary,keys,filename,clobber=False):
 	tbhdu.writeto(filename,clobber=clobber)
 	return
 
-def fits_data(fits_data):
+def fits_data(fits_data,elim_zeros=True):
 	d = {}
 	for i in range(len(fits_data.dtype)):
-		d[fits_data.columns[i].name] = fits_data[fits_data.columns[i].name][np.where(fits_data[fits_data.columns[i].name]!=0)]
+		if elim_zeros == True:
+			try:
+				d[fits_data.columns[i].name] = fits_data[fits_data.columns[i].name][np.where(fits_data[fits_data.columns[i].name]!=0)]
+			except TypeError:
+				d[fits_data.columns[i].name] = fits_data[fits_data.columns[i].name]
+		else:
+			d[fits_data.columns[i].name] = fits_data[fits_data.columns[i].name]
 	return d
 
 def fits_append(orig_table,new_dic,new_keys,filename,clobber=True):
