@@ -15,7 +15,7 @@ def fits_table(dictionary,keys,filename,clobber=False):
 		elif 'float' in format:
 			form = 'D'
 		elif 'string' in format:
-			form = 'J'
+			form = 'A'
 		elif 'bool' in format:
 			form = 'L'
 		cols.append(fits.Column(name=keys[i],format=form,array=dictionary[keys[i]]))
@@ -45,7 +45,7 @@ def fits_append(orig_table,new_dic,new_keys,filename,clobber=True):
 		elif 'float' in format:
 			form = 'D'
 		elif 'string' in format:
-			form = 'J'
+			form = 'A'
 		elif 'bool' in format:
 			form = 'L'
 		cols.append(fits.Column(name=orig_keys[i],format=form,array=orig_dic[orig_keys[i]]))
@@ -59,7 +59,7 @@ def fits_append(orig_table,new_dic,new_keys,filename,clobber=True):
 		elif 'float' in format:
 			form = 'D'
 		elif 'string' in format:
-			form = 'J'
+			form = 'A'
 		elif 'bool' in format:
 			form = 'L'
 		cols.append(fits.Column(name=new_keys[i],format=form,array=new_dic[new_keys[i]]))
