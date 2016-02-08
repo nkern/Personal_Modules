@@ -1,6 +1,6 @@
 '''
 Personal Script to Plot an Ellipse using matplotlib.pyplot
-matplotlib.patches.Ellipse is not sufficient desired purposes
+matplotlib.patches.Ellipse is not sufficient for desired purposes
 
 Nicholas Kern
 February, 2016
