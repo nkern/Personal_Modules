@@ -8,7 +8,7 @@ February, 2016
 import numpy as np
 import pylab as mp
 
-def plot_ellipse(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=None,plot_kwargs=None,fill=False,fill_kwargs=None):
+def plot_ellipse(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=None,plot_kwargs=None,fill=False,fill_kwargs=None,data_out=False):
 	'''
 		- create an ellipse in polar coordinates then transform to cartesian
 		- if given an axes, plot an ellipse with plot_kwargs
@@ -34,6 +34,10 @@ def plot_ellipse(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=No
 	data[0] += x_cent
 	data[1] += y_cent
 
+	# Output data?
+	if data_out == True:
+		return data
+
 	# Plot!
 	if ax == None:
 		fig,ax = mp.subplots()
@@ -42,7 +46,6 @@ def plot_ellipse(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=No
 		ax.plot(data[0],data[1],color='b',linestyle='-')	
 	else:
 		ax.plot(data[0],data[1],**plot_kwargs)
-
 
 	if fill == True:
 		ax.fill(data[0],data[1],**fill_kwargs)
