@@ -57,7 +57,7 @@ class LLS(object):
         names = ['A','perms']
         self.__dict__.update(ezcreate(names,locals()))
 
-        return A, perms
+        return A
 
 
 
