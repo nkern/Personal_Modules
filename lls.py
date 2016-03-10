@@ -9,6 +9,7 @@ March, 2016
 import itertools
 import operator
 import numpy as np
+import numpy.linalg as la
 import functools
 from DictEZ import create as ezcreate
 
