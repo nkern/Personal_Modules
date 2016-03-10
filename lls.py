@@ -59,8 +59,16 @@ class LLS(object):
 
         return A
 
-
-
+	def chi_square_min(self,y,A,N):
+		'''
+		- perform chi square minimization
+		- A is data model
+		- N are weights of each y_i for fit
+		- y are dataset
+		'''
+		xhat = np.dot( la.inv( np.dot( np.dot(A.T,la.inv(N)), A)), np.dot( np.dot(A.T,la.inv(N)), y) )
+		self.__dict__.update(ezcreate(['xhat'],locals()))
+		return xhat
 
 
 
