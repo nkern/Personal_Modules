@@ -9,7 +9,7 @@ import numpy as np
 import pylab as mp
 
 def plot_ellipse(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=None,plot_kwargs=None,fill=False,fill_kwargs=None,data_out=False):
-	'''
+	'''	(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=None,plot_kwargs=None,fill=False,fill_kwargs=None,data_out=False)
 		- create an ellipse in polar coordinates then transform to cartesian
 		- if given an axes, plot an ellipse with plot_kwargs
 		- if not given an axes, create a basic figure and axes and plot
