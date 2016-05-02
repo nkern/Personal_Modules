@@ -3,9 +3,12 @@ import numpy as np
 
 
 def fits_table(dictionary,keys,filename,clobber=False):
-	''' Takes data as a dictionary and makes a fits table, keys is a list or array 
+	''' 
+	fits_table(dictionary,keys,filename,clobber=False)
+	Takes data as a dictionary and makes a fits table, keys is a list or array 
 		with the column names in the order you want them to be added to the fits file
-		data in dictionary should be a numpy.ndarray '''
+		data in dictionary should be a numpy.ndarray
+	'''
 	length = len(keys)
 	cols = []
 	for i in range(length):
