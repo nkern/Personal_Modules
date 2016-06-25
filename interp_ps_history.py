@@ -70,6 +70,7 @@ def get_nearest(x,xarr,x_id,n=3):
 
 def ps_interp(z_array, z_data, y_data, n=3, degree=2):
 	""" 
+	ps_interp(z_array, z_data, y_data, n=3, degree=2)
 	- Interpolate power spectra histories output by 21cmFAST onto different redshifts
 	- Fit a quadratic to nearest 3-points
 	z_array : row vector ndarray of desired redshifts at which we want the power spectra
