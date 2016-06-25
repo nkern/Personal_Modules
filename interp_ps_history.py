@@ -122,7 +122,7 @@ def ps_interp(z_array, z_data, y_data, n=3, degree=2):
 		A = poly_design_mat([[z]],dim=1,degree=degree)
 		y_pred = np.dot(A,xhat)
 
-		y_interp.append(y_pred)
+		y_interp.append(y_pred.ravel())
 
 	return np.array(y_interp)
 
