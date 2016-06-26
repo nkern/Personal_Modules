@@ -85,7 +85,7 @@ def ps_interp(z_array, z_data, y_data, n=3, degree=2):
 	y_data = y_data[sort]
 
 	# Get redshift and kbin numbers
-	z_num = len(z_array)
+	z_num = len(z_data)
 	try: k_num = y_data.shape[1]
 	except IndexError: k_num = 1
 
