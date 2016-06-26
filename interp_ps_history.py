@@ -94,7 +94,7 @@ def ps_interp(z_array, z_data, y_data, n=3, degree=2):
 
 	# Iterate over desired points to interpolate
 	y_interp = []
-	for i in range(z_num):
+	for i in range(len(z_array)):
 		# Fit flag
 		fit = True
 
