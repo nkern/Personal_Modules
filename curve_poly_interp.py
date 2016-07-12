@@ -59,12 +59,12 @@ def chi_square_min(y,A,N):
 
 	return xhat
 
-def get_nearest(x,xarr,x_id,y_value,n=3):
+def get_nearest(x,xarr,x_id,y_curve,n=3):
 	"""
 	Get n nearest points in xarr to point x, and return their IDs in increasing order
-	so long as y_val != nan
+	so long as y_val != nan *for all curves*
 	"""
-	not_nan = np.where(np.isnan(y_value)!=True)[0]
+	not_nan = np.array(map(lambda x: True not in np.isnan(x), y_curve))
 	xarr = xarr[not_nan]
 	x_id = x_id[not_nan]
 	dist = np.abs(xarr-x)
@@ -84,19 +84,19 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2):
 		simultaneously--c_num is the number of curves we fit for--but their y-values 
 		must all be evaluated at the same x-values.
 	"""
-	# Order data by redshift
+	# Order data by xvalues
 	sort = np.argsort(x_array)
 	x_array = x_array[sort]
 	sort = np.argsort(x_curve)
 	x_curve = x_curve[sort]
 	y_curve = y_curve[sort]
 
-	# Get redshift and kbin numbers
+	# Get numbers of x-values and curves
 	x_num = len(x_curve)
 	try: c_num = y_curve.shape[1]
 	except IndexError: c_num = 1
 
-	# Assign each z_data point an identification number
+	# Assign each x_curve point an identification number
 	x_id = np.arange(x_num)
 
 	# Iterate over desired points to interpolate
@@ -105,7 +105,7 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2):
 		# Fit flag
 		fit = True
 
-		# Assign z point
+		# Assign x point
 		x = x_array[i]
 
 		# Get nearest neighbors
