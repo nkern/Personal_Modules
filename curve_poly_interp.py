@@ -86,7 +86,7 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2):
 	"""
 	# Order data by redshift
 	sort = np.argsort(x_array)
-	x_array = z_array[sort]
+	x_array = x_array[sort]
 	sort = np.argsort(x_curve)
 	x_curve = x_curve[sort]
 	y_curve = y_curve[sort]
