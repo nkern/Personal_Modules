@@ -1,6 +1,5 @@
 """
-Interpolate power spectra evolution
-
+curve_poly_interp.py : Localized Polynomial Interpolation of a smooth, discretized, curvy function
 Nicholas Kern
 2016
 """
@@ -72,59 +71,63 @@ def get_nearest(x,xarr,x_id,y_value,n=3):
 	nn_id = x_id[np.argsort(dist)][:n]
 	return nn_id[np.argsort(nn_id)]
 
-def ps_interp(z_array, z_data, y_data, n=3, degree=2):
+def curve_interp(x_array, x_curve, y_curve, n=3, degree=2):
 	""" 
-	ps_interp(z_array, z_data, y_data, n=3, degree=2)
-	- Interpolate power spectra histories output by 21cmFAST onto different redshifts
-	- Fit a quadratic to nearest 3-points
-	z_array : row vector ndarray of desired redshifts at which we want the power spectra
-	z_data : row vector ndarray of 21cmFAST output redshifts
-	y_data : matrix ndarray with shape (z_num, k_num) of 21cmFAST output power spectra (DelDel [mK^2])
+	curve_interp(x_array, x_curve, y_curve, n=3, degree=2)
+	- Interpolate smooth curve(s) via localized polynomial regression
+	- Fit a polynomial of <degree> degree to <n> nearest points
+	x_array : row vector (ndarray) of desired x points at which we interpolate the curve
+	x_curve : row vector (ndarray) of x-values of the curve we wish to interpolate, with length x_num
+	y_curve : matrix (ndarray) with shape (x_num, c_num), containing y-values of curve(s) we wish to interpolate
+
+	- Note there can be multiple curves we independently fit for 
+		simultaneously--c_num is the number of curves we fit for--but their y-values 
+		must all be evaluated at the same x-values.
 	"""
 	# Order data by redshift
-	sort = np.argsort(z_array)
-	z_array = z_array[sort]
-	sort = np.argsort(z_data)
-	z_data = z_data[sort]
-	y_data = y_data[sort]
+	sort = np.argsort(x_array)
+	x_array = z_array[sort]
+	sort = np.argsort(x_curve)
+	x_curve = x_curve[sort]
+	y_curve = y_curve[sort]
 
 	# Get redshift and kbin numbers
-	z_num = len(z_data)
-	try: k_num = y_data.shape[1]
-	except IndexError: k_num = 1
+	x_num = len(x_curve)
+	try: c_num = y_curve.shape[1]
+	except IndexError: c_num = 1
 
 	# Assign each z_data point an identification number
-	z_id = np.arange(z_num)
+	x_id = np.arange(x_num)
 
 	# Iterate over desired points to interpolate
 	y_interp = []
-	for i in range(len(z_array)):
+	for i in range(len(x_array)):
 		# Fit flag
 		fit = True
 
 		# Assign z point
-		z = z_array[i]
+		x = x_array[i]
 
 		# Get nearest neighbors
 		if i != 0:
 			# If nearest neighbors haven't changed, do redo fit!
-			nn_id_new = get_nearest(z,z_data,z_id,y_data,n=n)
+			nn_id_new = get_nearest(x,x_curve,x_id,y_curve,n=n)
 			if np.abs(sum(nn_id - nn_id_new)) < 0.1:
 				fit = False
 			else:
 				# If they have, get new nearest neighbors
 				nn_id = nn_id_new
 		else:
-			nn_id = get_nearest(z,z_data,z_id,y_data,n=n)
+			nn_id = get_nearest(x,x_curve,x_id,y_curve,n=n)
 
 		# Fit for polynomial
 		if fit == True:
-			A = poly_design_mat([z_data[nn_id]],dim=1,degree=degree)
+			A = poly_design_mat([x_curve[nn_id]],dim=1,degree=degree)
 			N = np.eye(n)
-			xhat = chi_square_min(y_data[nn_id],A,N)
+			xhat = chi_square_min(y_curve[nn_id],A,N)
 
 		# Make prediction
-		A = poly_design_mat([[z]],dim=1,degree=degree)
+		A = poly_design_mat([[x]],dim=1,degree=degree)
 		y_pred = np.dot(A,xhat)
 
 		y_interp.append(y_pred.ravel())
