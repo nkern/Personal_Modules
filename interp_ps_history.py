@@ -60,10 +60,14 @@ def chi_square_min(y,A,N):
 
 	return xhat
 
-def get_nearest(x,xarr,x_id,n=3):
+def get_nearest(x,xarr,x_id,y_value,n=3):
 	"""
 	Get n nearest points in xarr to point x, and return their IDs in increasing order
+	so long as y_val != nan
 	"""
+	not_nan = np.where(np.isnan(y_value)!=True)[0]
+	xarr = xarr[not_nan]
+	x_id = x_id[not_nan]
 	dist = np.abs(xarr-x)
 	nn_id = x_id[np.argsort(dist)][:n]
 	return nn_id[np.argsort(nn_id)]
@@ -104,7 +108,7 @@ def ps_interp(z_array, z_data, y_data, n=3, degree=2):
 		# Get nearest neighbors
 		if i != 0:
 			# If nearest neighbors haven't changed, do redo fit!
-			nn_id_new = get_nearest(z,z_data,z_id,n=n)
+			nn_id_new = get_nearest(z,z_data,z_id,y_data,n=n)
 			if np.abs(sum(nn_id - nn_id_new)) < 0.1:
 				fit = False
 			else:
