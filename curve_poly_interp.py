@@ -69,7 +69,6 @@ def get_nearest(x,xarr,x_id,y_curve,n=3):
 	x_id = x_id[not_nan]
 	dist = np.abs(xarr-x)
 	nn_id = x_id[np.argsort(dist)][:n]
-	print nn_id
 	return nn_id[np.argsort(nn_id)]
 
 def curve_interp(x_array, x_curve, y_curve, n=3, degree=2):
