@@ -115,7 +115,7 @@ def ps_interp(z_array, z_data, y_data, n=3, degree=2):
 				# If they have, get new nearest neighbors
 				nn_id = nn_id_new
 		else:
-			nn_id = get_nearest(z,z_data,z_id,n=n)
+			nn_id = get_nearest(z,z_data,z_id,y_data,n=n)
 
 		# Fit for polynomial
 		if fit == True:
