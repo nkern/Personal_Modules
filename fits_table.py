@@ -26,6 +26,7 @@ def fits_table(dictionary,keys,filename,clobber=False):
 	tbhdu.writeto(filename,clobber=clobber)
 	return
 
+
 def fits_data(fits_data,elim_zeros=True):
 	d = {}
 	for i in range(len(fits_data.dtype)):
@@ -37,6 +38,14 @@ def fits_data(fits_data,elim_zeros=True):
 		else:
 			d[fits_data.columns[i].name] = fits_data[fits_data.columns[i].name]
 	return d
+
+
+def fits_to_array(fits_data,elim_zeros=False):
+	dic = fits_data(fits_data,elim_zeros=elim_zeros)
+	names = dic.names
+	grid = np.array( map(lambda x: grid[x], names) ).T
+	return grid
+
 
 def fits_append(orig_table,new_dic,new_keys,filename,clobber=True):
 	''' Takes an original fits record table and appends to it new columns stored in new_dic '''
