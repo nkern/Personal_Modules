@@ -40,8 +40,8 @@ def fits_data(fits_data,elim_zeros=True):
 	return d
 
 
-def fits_to_array(fits_data,elim_zeros=False):
-	dic = fits_data(fits_data,elim_zeros=elim_zeros)
+def fits_to_array(fits_rec,elim_zeros=False):
+	dic = fits_data(fits_rec,elim_zeros=elim_zeros)
 	names = dic.names
 	grid = np.array( map(lambda x: grid[x], names) ).T
 	return grid
