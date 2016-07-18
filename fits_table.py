@@ -43,7 +43,7 @@ def fits_data(fits_data,elim_zeros=True):
 def fits_to_array(fits_rec,elim_zeros=False):
 	dic = fits_data(fits_rec,elim_zeros=elim_zeros)
 	names = fits_rec.names
-	grid = np.array( map(lambda x: grid[x], names) ).T
+	grid = np.array( map(lambda x: dic[x], names) ).T
 	return grid
 
 
