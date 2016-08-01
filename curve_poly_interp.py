@@ -135,6 +135,3 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2):
 	return np.array(y_interp)
 
 
-
-
-
