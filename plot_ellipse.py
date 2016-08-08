@@ -9,7 +9,7 @@ import numpy as np
 import pylab as mp
 
 def plot_ellipse(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=None,plot_kwargs=None,fill=False,fill_kwargs=None,data_out=False,cov=None):
-	'''	(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=None,plot_kwargs=None,fill=False,fill_kwargs=None,data_out=False)
+	'''	(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=None,plot_kwargs=None,fill=False,fill_kwargs=None,data_out=False,cov=None)
 		- create an ellipse in polar coordinates then transform to cartesian
 		- if given an axes, plot an ellipse with plot_kwargs
 		- if not given an axes, create a basic figure and axes and plot
@@ -17,6 +17,7 @@ def plot_ellipse(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=No
 		semimaj : length of semimajor axis (always taken to be some phi from positive x-axis!)
 		semimin : length of semiminor axis
 		phi : angle in radians semimajor axis is above positive x axis
+		cov : 2D covariance matrix of ellipse, if given this will overwrite semimaj, semimin and phi
 		x_cent : x center
 		y_cent : y center
 		theta_num : number of points to sample from 0 to 2pi
