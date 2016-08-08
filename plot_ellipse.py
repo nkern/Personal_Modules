@@ -27,10 +27,10 @@ def plot_ellipse(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=No
 		eig_vec,eig_val,u = np.linalg.svd(cov)
 		semimaj = np.sqrt(eig_val[0])
 		semimin = np.sqrt(eig_val[1])
-		phi = np.dot(eig_vec[0],np.array([1,0]))
+		phi = np.arccos(np.dot(eig_vec[0],np.array([1,0])))
 		if phi < 0:
 			eig_vec *= -1
-			phi = np.dot(eig_vec[0],np.array([1,0]))
+			phi = np.arccos(np.dot(eig_vec[0],np.array([1,0])))
 
 	# Generate data for ellipse structure
 	theta = np.linspace(0,2*np.pi,theta_num)
