@@ -28,7 +28,7 @@ def plot_ellipse(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=No
 		semimaj = np.sqrt(eig_val[0])
 		semimin = np.sqrt(eig_val[1])
 		phi = np.arccos(np.dot(eig_vec[0],np.array([1,0])))
-		if phi < 0:
+		if phi > np.pi/2. or phi < -np.pi/2.:
 			eig_vec *= -1
 			phi = np.arccos(np.dot(eig_vec[0],np.array([1,0])))
 
