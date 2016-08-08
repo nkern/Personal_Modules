@@ -8,7 +8,7 @@ February, 2016
 import numpy as np
 import pylab as mp
 
-def plot_ellipse(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=None,plot_kwargs=None,fill=False,fill_kwargs=None,data_out=False):
+def plot_ellipse(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=None,plot_kwargs=None,fill=False,fill_kwargs=None,data_out=False,cov=None):
 	'''	(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=None,plot_kwargs=None,fill=False,fill_kwargs=None,data_out=False)
 		- create an ellipse in polar coordinates then transform to cartesian
 		- if given an axes, plot an ellipse with plot_kwargs
@@ -21,6 +21,16 @@ def plot_ellipse(semimaj=1,semimin=1,phi=0,x_cent=0,y_cent=0,theta_num=1e3,ax=No
 		y_cent : y center
 		theta_num : number of points to sample from 0 to 2pi
 	'''
+	# Get Ellipse Properties from cov matrix
+	if cov is not None:
+		eig_vec,eig_val,u = np.linalg.svd(cov)
+		semimaj = np.sqrt(eig_val[0])
+		semimin = np.sqrt(eig_val[1])
+		phi = np.dot(eig_vec[0],np.array([1,0]))
+		if phi < 0:
+			eig_vec *= -1
+			phi = np.dot(eig_vec[0],np.array([1,0]))
+
 	# Generate data for ellipse structure
 	theta = np.linspace(0,2*np.pi,theta_num)
 	r = 1 / np.sqrt((np.cos(theta))**2 + (np.sin(theta))**2)
