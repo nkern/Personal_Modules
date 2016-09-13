@@ -138,7 +138,7 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrapolate_deg=1):
 		if interpolating == True:
 			poly_deg = degree
 		else:
-			poly_deg = extrapolating_deg
+			poly_deg = extrapolate_deg
 
 		if fit == True:
 			A = poly_design_mat([x_curve[nn_id]],dim=1,degree=poly_deg)
