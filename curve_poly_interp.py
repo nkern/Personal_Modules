@@ -164,7 +164,7 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrap_deg=1, extrap_
 
 		if fit == True:
 			A = poly_design_mat([x_curve[nn_id]],dim=1,degree=poly_deg)
-			N = np.eye(n)
+			N = np.eye(n_fit)
 			xhat = chi_square_min(y_curve[nn_id],A,N)
 
 		# Make prediction
