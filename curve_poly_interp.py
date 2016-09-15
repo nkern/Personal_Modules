@@ -71,9 +71,9 @@ def get_nearest(x,xarr,x_id,y_curve,n=3):
 	nn_id = x_id[np.argsort(dist)][:n]
 	return nn_id[np.argsort(nn_id)]
 
-def curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrapolate_deg=1):
+def curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrap_deg=1, extrap_n=2):
 	""" 
-	curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrapolate_deg=1)
+	curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrap_deg=1, extrap_n=2)
 	- Interpolate smooth curve(s) via localized polynomial regression
 	- Fit a polynomial of <degree> degree to <n> nearest points
 	x_array : row vector (ndarray) of desired x points at which we interpolate the curve
@@ -82,7 +82,8 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrapolate_deg=1):
 
 	n : number of points to use in fit
 	degree : degree of polynomial fit
-	extrapolate_deg : degree of polynomial fit when extrapolating
+	extrap_deg : degree of polynomial fit when extrapolating
+	extrap_n : number of points to use in extrapolating fit
 
 	- Note there can be multiple curves we independently fit for 
 		simultaneously--c_num is the number of curves we fit for--but their y-values 
@@ -107,6 +108,7 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrapolate_deg=1):
 	# Iterate over desired points to interpolate
 	y_interp = []
 	for i in range(len(x_array)):
+		# Set interpolation by default
 		interpolating = True
 
 		# Fit flag
@@ -115,18 +117,6 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrapolate_deg=1):
 		# Assign x point
 		x = x_array[i]
 
-		# Get nearest neighbors
-		if i != 0:
-			# If nearest neighbors haven't changed, do redo fit!
-			nn_id_new = get_nearest(x,x_curve,x_id,y_curve,n=n)
-			if np.abs(sum(nn_id - nn_id_new)) < 0.1:
-				fit = False
-			else:
-				# If they have, get new nearest neighbors
-				nn_id = nn_id_new
-		else:
-			nn_id = get_nearest(x,x_curve,x_id,y_curve,n=n)
-
 		# Check for interpolation or extrapolation
 		x_diff = x_array[i] - x_curve[nn_id]
 		sum1 = np.abs(np.sum(x_diff))
@@ -134,11 +124,24 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrapolate_deg=1):
 		if sum1 < sum2*1.001 and sum1 > sum2*0.999:
 			interpolating = False
 
-		# Fit for polynomial
 		if interpolating == True:
-			poly_deg = degree
+			n_fit = n
+			poly_deg = deg
 		else:
-			poly_deg = extrapolate_deg
+			n_fit = extrap_n
+			poly_deg = extrap_deg
+
+		# Get nearest neighbors
+		if i != 0:
+			# If nearest neighbors haven't changed, do redo fit! If poly_deg has changed, re-do fit!
+			nn_id_new = get_nearest(x,x_curve,x_id,y_curve,n=n_fit)
+			if np.abs(sum(nn_id - nn_id_new)) < 0.1:
+				fit = False
+			else:
+				# If they have, get new nearest neighbors
+				nn_id = nn_id_new
+		else:
+			nn_id = get_nearest(x,x_curve,x_id,y_curve,n=n_fit)
 
 		if fit == True:
 			A = poly_design_mat([x_curve[nn_id]],dim=1,degree=poly_deg)
