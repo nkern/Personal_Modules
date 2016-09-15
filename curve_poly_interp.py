@@ -119,7 +119,7 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrap_deg=1, extrap_
 
 		if interpolating == True:
 			n_fit = n
-			poly_deg = deg
+			poly_deg = degree
 		else:
 			n_fit = extrap_n
 			poly_deg = extrap_deg
@@ -153,7 +153,7 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrap_deg=1, extrap_
 
 		if interpolating == True:
 			n_fit = n
-			poly_deg = deg
+			poly_deg = degree
 		else:
 			n_fit = extrap_n
 			poly_deg = extrap_deg
