@@ -107,22 +107,15 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrap_deg=1, extrap_
 
 	# Iterate over desired points to interpolate
 	y_interp = []
+	# Set interpolation by default
+	interpolating = True
 	for i in range(len(x_array)):
-		# Set interpolation by default
-		interpolating = True
 
 		# Fit flag
 		fit = True
 
 		# Assign x point
 		x = x_array[i]
-
-		# Check for interpolation or extrapolation
-		x_diff = x_array[i] - x_curve[nn_id]
-		sum1 = np.abs(np.sum(x_diff))
-		sum2 = np.sum(np.abs(x_diff))
-		if sum1 < sum2*1.001 and sum1 > sum2*0.999:
-			interpolating = False
 
 		if interpolating == True:
 			n_fit = n
@@ -135,13 +128,39 @@ def curve_interp(x_array, x_curve, y_curve, n=3, degree=2, extrap_deg=1, extrap_
 		if i != 0:
 			# If nearest neighbors haven't changed, do redo fit! If poly_deg has changed, re-do fit!
 			nn_id_new = get_nearest(x,x_curve,x_id,y_curve,n=n_fit)
-			if np.abs(sum(nn_id - nn_id_new)) < 0.1:
+			if np.abs(sum(nn_id - nn_id_new)) < 0.0001:
 				fit = False
 			else:
 				# If they have, get new nearest neighbors
 				nn_id = nn_id_new
 		else:
 			nn_id = get_nearest(x,x_curve,x_id,y_curve,n=n_fit)
+
+		# Check for interpolation or extrapolation
+		x_diff = x_array[i] - x_curve[nn_id]
+		sum1 = np.abs(np.sum(x_diff))
+		sum2 = np.sum(np.abs(x_diff))
+		if np.abs(sum1 - sum2) < 0.0001:
+			interpolate = False
+			if interpolating == True:	redo_fit = True
+			else:						redo_fit = False
+			interpolating = False
+		else:
+			interpolate = True
+			if interpolating == True:	redo_fit = False
+			else:						redo_fit = True
+			interpolating = True
+
+		if interpolating == True:
+			n_fit = n
+			poly_deg = deg
+		else:
+			n_fit = extrap_n
+			poly_deg = extrap_deg
+
+		if redo_fit == True:
+			nn_id = get_nearest(x,x_curve,x_id,y_curve,n=n_fit)
+			fit = True
 
 		if fit == True:
 			A = poly_design_mat([x_curve[nn_id]],dim=1,degree=poly_deg)
