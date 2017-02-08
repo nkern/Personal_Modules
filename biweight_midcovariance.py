@@ -1,3 +1,5 @@
+import numpy as np
+
 def biweight_midcovariance(a, c=9.0, M=None):
     r"""
     Compute the biweight midcovariance.
