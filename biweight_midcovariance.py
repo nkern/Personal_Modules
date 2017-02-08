@@ -1,4 +1,5 @@
 import numpy as np
+import astropy.stats as astats
 
 def biweight_midcovariance(a, c=9.0, M=None):
     r"""
@@ -54,7 +55,7 @@ def biweight_midcovariance(a, c=9.0, M=None):
     d = (a.T - M).T
 
     # set up the weighting
-    mad = median_absolute_deviation(a, axis=1)
+    mad = astats.median_absolute_deviation(a, axis=1)
     u = (d.T / (c * mad)).T
 
     # now remove the outlier points
