@@ -65,10 +65,8 @@ def biweight_midcovariance(a, c=9.0, M=None):
     usub5 = (1-5*u**2)
     usub1[~mask] = 0.0
 
-    # now compute nominator and denominators
-    numerator = np.array(map(lambda x: d*usub1**2*x, d*usub1**2)).sum(axis=2)
-    denominator = (usub1*usub5).sum(axis=1)
-    denominator = np.array(map(lambda x: denominator*x, denominator))
+    # now compute numerator and denominators
+    numerator = d * usub1 ** 2
+    denominator = (usub1 * usub5).sum(axis=1)[:, np.newaxis]
 
-    return n * numerator / denominator
-
+    return n * np.dot(numerator, numerator.T) / np.dot(denominator, denominator.T)
