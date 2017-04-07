@@ -1,7 +1,9 @@
 """
-CMB parameter mappings
+Port of CMB parameter mappings from Adrian Liu's Mathematica code
 
+Nicholas Kern
 """
+
 from __future__ import division
 import numpy as np
 from scipy.integrate import quad
@@ -43,5 +45,3 @@ def ztoa(z):
 def Theta_MC(h, Obh2, Och2, T=2.726, nuDegen=3.04):
 	arec = ztoa(zstar(Obh2,Och2))
 	return rs(arec, h, Obh2, Och2, T, nuDegen)/ComovingLOSDist(arec, h, Obh2, Och2, T, nuDegen)
-
-
