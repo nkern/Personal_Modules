@@ -81,7 +81,8 @@ def biweight_midcovariance(a, c=9.0, M=None, transpose=False):
 
     # now remove the outlier points
     mask = np.abs(u) < 1
-    n = mask.sum(axis=1)
+    maskf = np.array(mask, float)
+    n = np.inner(maskf,maskf)
     usub1 = (1 - u ** 2)
     usub5 = (1 - 5 * u ** 2)
     usub1[~mask] = 0.0
@@ -93,6 +94,5 @@ def biweight_midcovariance(a, c=9.0, M=None, transpose=False):
     # return estimate of the covariance
     numerator_matrix = np.dot(numerator, numerator.T)
     denominator_matrix = np.dot(denominator, denominator.T)
-    nsqrt = np.sqrt(n.reshape(1,-1))
-    return nsqrt * (numerator_matrix / denominator_matrix) * nsqrt.T
+    return n * (numerator_matrix / denominator_matrix)
 
