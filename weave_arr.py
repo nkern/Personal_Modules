@@ -1,6 +1,6 @@
 import numpy as np
 
-def weave(a, b):
+def weave_arr(a, b):
     """
     weave two ndarrays 'a' and 'b' together
     """
