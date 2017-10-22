@@ -54,6 +54,12 @@ try:
 except:
     print('could not import aipy')
 
+# healpy
+try:
+    import healpy as hp
+except:
+    print('could not import healpy')
+
 # other
 import glob
 import fnmatch
