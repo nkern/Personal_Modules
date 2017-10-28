@@ -26,7 +26,7 @@ except:
 
 # pyuvdata
 try:
-    from pyuvdata import UVCal, UVData, UVFITS, UVBeam
+    from pyuvdata import UVCal, UVData, UVFITS, UVBeam, uvutils
 except:
     print('could not import pyuvdata')
 
