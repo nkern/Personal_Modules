@@ -60,6 +60,13 @@ try:
 except:
     print('could not import healpy')
 
+# hera_sandbox
+try:
+    import JD2LST
+    from get_antpos import get_antpos
+except:
+    print('could not import hera_sandbox scripts')
+
 # other
 import glob
 import fnmatch
