@@ -67,6 +67,12 @@ try:
 except:
     print('could not import hera_sandbox scripts')
 
+# linesolve
+try:
+    import linsolve
+except:
+    print('could not import linsolve')
+
 # other
 import glob
 import fnmatch
