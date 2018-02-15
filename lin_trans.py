@@ -34,9 +34,9 @@ def trans2d(phi=0, sx=1, sy=1):
     return np.dot(R, S)
 
 def rot3d(phi_x=0, phi_y=0, phi_z=0):
-    Rx = np.array([[1, 0, 0], [0, np.cos(phi), -np.sin(phi)], [0, np.sin(phi), np.cos(phi)]])
-    Ry = np.array([[np.cos(phi), 0, np.sin(phi)], [0, 1, 0], [-np.sin(phi), 0, np.cos(phi)]])
-    Rz = np.array([[np.cos(phi), -np.sin(phi), 0], [np.sin(phi), np.cos(phi), 0], [0, 0, 0]])
+    Rx = np.array([[1, 0, 0], [0, np.cos(phi_x), -np.sin(phi_x)], [0, np.sin(phi_x), np.cos(phi_x)]])
+    Ry = np.array([[np.cos(phi_y), 0, np.sin(phi_y)], [0, 1, 0], [-np.sin(phi_y), 0, np.cos(phi_y)]])
+    Rz = np.array([[np.cos(phi_z), -np.sin(phi_z), 0], [np.sin(phi_z), np.cos(phi_z), 0], [0, 0, 0]])
     return np.dot(Rx, np.dot(Ry, Rz))
 
 def stretch3d(sx=1, sy=1, sz=1):
