@@ -21,6 +21,7 @@ try:
     import scipy.stats as stats
     import scipy.optimize as optimize
     import scipy.signal as signal
+    import scipy.interpolate as interp
 except:
     print('could not import scipy')
 
@@ -42,6 +43,12 @@ try:
 except:
     print('could not import hera_cal')
 
+# hera_pspec
+try:
+    import hera_pspec as hp
+except:
+    print("could not import hera_pspec")
+
 # hera qm
 try:
     import hera_qm as hq
@@ -56,14 +63,13 @@ except:
 
 # healpy
 try:
-    import healpy as hp
+    import healpy as hlp
 except:
     print('could not import healpy')
 
 # hera_sandbox
 try:
     import JD2LST
-    from get_antpos import get_antpos
 except:
     print('could not import hera_sandbox scripts')
 
