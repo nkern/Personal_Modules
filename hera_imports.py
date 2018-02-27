@@ -90,7 +90,7 @@ import cPickle as pkl
 import json
 import datetime
 import copy
-from collections import OrderedDict
+from collections import OrderedDict as odict
 import shutil
 
 
