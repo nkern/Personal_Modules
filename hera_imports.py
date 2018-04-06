@@ -27,7 +27,8 @@ except:
 
 # pyuvdata
 try:
-    from pyuvdata import UVCal, UVData, UVFITS, UVBeam, uvutils
+    from pyuvdata import UVCal, UVData, UVFITS, UVBeam
+    from pyuvdata import utils as uvutils
 except:
     print('could not import pyuvdata')
 
@@ -79,6 +80,13 @@ try:
 except:
     print('could not import linsolve')
 
+# h5py
+try:
+    import h5py
+except:
+    print('could not import h5py')
+
+
 # other
 import glob
 import fnmatch
@@ -92,7 +100,8 @@ import datetime
 import copy
 from collections import OrderedDict as odict
 import shutil
-
+import itertools
+import operator
 
 
 
