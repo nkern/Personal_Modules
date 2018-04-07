@@ -21,6 +21,7 @@ try:
     import scipy.stats as stats
     import scipy.optimize as optimize
     import scipy.signal as signal
+    import scipy.integrate as integrate
     import scipy.interpolate as interp
 except:
     print('could not import scipy')
